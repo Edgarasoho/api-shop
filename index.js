@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.use("/product", require("./routes/productGetterRoutes"));
 app.use("/product", require("./routes/productSetterRoutes"));
-
+app.get("/", (req, res) => res.send("Express on Vercel"));
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_DB_URI);
