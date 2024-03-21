@@ -1,19 +1,24 @@
 const mongoose = require("mongoose");
-require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+
 const app = express();
 const PORT = 3000;
 
+app.use(cors());
 app.use(express.json());
-app.use("/product", require("./routes/producSetterRoutes"));
-app.use("/product", require("./routes/productGetterRoutes"));
 
-const connectDB = () => {
+app.use("/product", require("./routes/productGetterRoutes"));
+app.use("/product", require("./routes/productSetterRoutes"));
+
+const connectDB = async () => {
   try {
-    mongoose.connect(process.env.MONGO_DB_URI);
-    console.log("data base connected");
+    await mongoose.connect(process.env.MONGO_DB_URI);
+
+    console.log("Database connected");
   } catch (err) {
-    console.log("Error", err.message);
+    console.log("Error:", err.message);
   }
 };
 

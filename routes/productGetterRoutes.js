@@ -1,16 +1,25 @@
 const { Router } = require("express");
-const getAllProduts = require("../controllers/getAllProduts.js");
+const { getAllProducts, getProductById } = require("../controllers");
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  const data = getAllProduts();
+// GET /product
+router.get("/", async (req, res) => {
+  try {
+    const data = await getAllProducts();
 
-  res.json(data);
+    res.json(data);
+  } catch (error) {
+    console.log("Error:", error.message);
+    res.status(400).json({ message: error.message });
+  }
 });
 
+// GET /product/:id
 router.get("/:id", (req, res) => {
-  res.send("get all products");
+  const data = getProductById();
+
+  res.json(data);
 });
 
 module.exports = router;
