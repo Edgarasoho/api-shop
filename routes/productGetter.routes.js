@@ -1,12 +1,12 @@
 const { Router } = require("express");
-const { getAllProducts, getProductById } = require("../controllers");
+const { createProduct, getProductById } = require("../controllers");
 
 const router = Router();
 
 // GET /product
 router.get("/", async (req, res) => {
   try {
-    const data = await getAllProducts();
+    const data = await createProduct();
 
     res.json(data);
   } catch (error) {
