@@ -9,8 +9,11 @@ async function loginUser(user) {
 
   const findUser = await User.findOne({ username });
 
-  if (!findUser) throw new Error("User not found");
+  if (!findUser) throw new Error("Username not found");
   const match = await bcrypt.compare(password, findUser.password);
+
+  if (!match) throw new Error("Wrong password");
+
   return "Login user";
 }
 
